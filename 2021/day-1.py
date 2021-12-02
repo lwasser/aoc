@@ -31,6 +31,9 @@ import pandas as pd
 rolling = pd.Series(final_vals).rolling(window=n).sum().dropna().to_list()
 answer_b = count_increase(rolling)
 
+len([i for i in range(len(final_vals) - 3) if final_vals[i+3] > final_vals[i]])
+
+
 
 
 
