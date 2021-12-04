@@ -1,4 +1,5 @@
-"""finding the most common bit in the corresponding position of all numbers in the diagnostic report"""
+"""finding the most common bit in the corresponding position of all numbers
+in the diagnostic report"""
 
 # Setup
 import os
@@ -11,18 +12,16 @@ path = os.path.join(os.getcwd(), "2021", data_path)
 with open(path) as f:
     lines = f.readlines()
 
-# Use lists to clean data
+# Clean data
 final_vals = [anum.strip() for anum in lines]
 
-y_len = len(final_vals)
-x_len = len(final_vals[0])
-a = np.zeros((x_len, y_len))
-
-# Populate array with values - must be a better way to do this?
+# Second better way to populate array
+arr_ls = []
 for anindex, aval in enumerate(final_vals):
-    num_pivot = []
-    for sub_index, anum in enumerate(aval):
-        a[sub_index, anindex] = anum
+    arr_ls.append(np.reshape(np.fromiter(aval, "uint8"), (12, 1)))
+
+a = np.hstack(arr_ls)
+
 
 # Get counts
 gamma = []
@@ -46,18 +45,21 @@ final = gamma_value * epsilon_value
 # 3148794 should be correct
 print("Final Value part A: ", final)
 
-""" part 2 - this aint pretty at 4am but it's working."""
 
-"""verify the life support rating, which can be determined by 
+"""
+part 2 - this aint pretty at 4am but it's working
+
+Verify the life support rating, which can be determined by
 multiplying the oxygen generator rating by the CO2 scrubber rating
 
 What planet am i living on?
 
-Start with all 12 numbers and consider only the first bit of each number. 
-There are more 1 bits (7) than 0 bits (5), so keep only the 7 numbers with 
+Start with all 12 numbers and consider only the first bit of each number.
+There are more 1 bits (7) than 0 bits (5), so keep only the 7 numbers with
 a 1 in the first position: 11110, 10110, 10111, 10101, 11100, 10000, and 11001.
-Then, consider the second bit of the 7 remaining numbers: there are more 0 bits 
-(4) than 1 bits (3), so keep only the 4 numbers with a 0 in the second position: 10110, 10111, 10101, and 10000.
+Then, consider the second bit of the 7 remaining numbers: there are more 0 bits
+(4) than 1 bits (3), so keep only the 4 numbers with a 0 in the second
+position: 10110, 10111, 10101, and 10000.
 """
 
 
@@ -73,8 +75,7 @@ def parse_arr(arr, position):
             print("we're done now", arr)
             break
         else:
-            unique, counts = np.unique(arr[aval],
-                                       return_counts=True)
+            unique, counts = np.unique(arr[aval], return_counts=True)
             # If 0's are more common than 1's
             if counts[0] > counts[1]:
                 print("0 are greater than 1s", counts)
@@ -91,10 +92,12 @@ def parse_arr(arr, position):
     # Return final array
     return arr
 
+
 def list_to_binary_int(arr):
     arr_ls = arr.astype("int").astype("str").tolist()
     list_flat = [item for sublist in arr_ls for item in sublist]
     return int("".join(map(str, list_flat)), 2)
+
 
 # Start fresh with new data just in case
 all_vals_oxygen_arr = a.copy()
@@ -111,7 +114,3 @@ final_co2 = list_to_binary_int(co2)
 final_val = final_co2 * final_o2
 # 2795310
 print("The final is", final_val)
-
-
-
-
