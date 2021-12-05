@@ -29,7 +29,6 @@ for lst in new_list:
     else:
         diagnol_list.append(list(map(int, lst)))
 
-
 # Note test data does start at 0, don't think my actual data does so will
 # need to adjust by min value
 # only consider horizontal and vertical lines
@@ -49,12 +48,10 @@ def get_index(coord_list):
         startx, endx = x2, x1
     else:
         startx, endx = x1, x2
-
     if y1 > y2:
         starty, endy = y2, y1
     else:
         starty, endy = y1, y2
-
     return startx, starty, endx + 1, endy + 1
 
 
@@ -69,7 +66,7 @@ for alist in final_list:
 
 # At how many points do at least two lines overlap?
 # 7297
-location_map[location_map >= 2].shape[0]
+print("Part A Answer", location_map[location_map >= 2].shape[0])
 
 
 """part b
@@ -77,11 +74,6 @@ location_map[location_map >= 2].shape[0]
 I knew it - consider diagnols too this means slicing wont work
 """
 
-# This contains all coordinates
-max_val = int(np.max(np.array(final_list)))
-min_val = int(np.min(np.array(final_list)))
-shape = np.array(final_list).shape
-arr_shape = max_val - min_val
 # The shape shouldn't matter in theory
 location_map = np.zeros((max_val + 1, max_val + 1), dtype="int")
 
@@ -95,10 +87,8 @@ for alist in final_list:
 for alist in diagnol_list:
     startx, starty, endx, endy = alist
     total_steps = abs(startx - endx) + 1
-    print("LOOP", alist)
     y, x = starty, startx
     for i in range(total_steps):
-        print("iter", i, "next coord:", x, y)
         location_map[y, x] = location_map[y, x] + 1
         # Subtract x if the end is smaller than beginning
         if startx > endx:
@@ -113,4 +103,4 @@ for alist in diagnol_list:
 
 # At how many points do at least two lines overlap?
 # 21038
-location_map[location_map >= 2].shape[0]
+print("Part b answer: ", location_map[location_map >= 2].shape[0])
