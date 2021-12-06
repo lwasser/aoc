@@ -9,29 +9,20 @@ data = []
 # Read and cleanup
 with open(path) as f:
     for line in f.readlines():
-        data.append(line.split())
-
-# Data are strings rather than numbers.
-# Drop that goofy ->
-cleaned_data = [[i[0], i[2]] for i in data]
-# Split and turn into numbers for indexing later
-# This is hideous data cleaning but moving on for now
-new_list = []
-for data in cleaned_data:
-    new_list.append(data[0].split(",") + data[1].split(","))
+        data.append(line.split()[0].split(",") + line.split()[2].split(","))
+# String -> int
+data_int = [list(map(int, lst)) for lst in data]
 
 final_list = []
 diagnol_list = []
-# Throw out data where either x1 != x2 or y1 != y2
-for lst in new_list:
+for lst in data_int:
+    # If the data only contain horizontal lines
     if lst[0] == lst[2] or lst[1] == lst[3]:
-        final_list.append(list(map(int, lst)))
+        final_list.append(lst)
     else:
-        diagnol_list.append(list(map(int, lst)))
+        # List o' diagonals
+        diagnol_list.append(lst)
 
-# Note test data does start at 0, don't think my actual data does so will
-# need to adjust by min value
-# only consider horizontal and vertical lines
 max_val = int(np.max(np.array(final_list)))
 min_val = int(np.min(np.array(final_list)))
 shape = np.array(final_list).shape
