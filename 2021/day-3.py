@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 data_path = "data-day-3.txt"
-path = os.path.join(os.getcwd(), "2021", data_path)
+path = os.path.join(os.getcwd(), "2021", "data", data_path)
 
 # Read and cleanup
 with open(path) as f:
@@ -69,26 +69,21 @@ def parse_arr(arr, position):
         position... 01 or 10
     """
     for aval in range(arr.shape[0]):
-        print("AVAL:", aval)
         # Stop when one col is left
         if arr.shape[1] == 1:
-            print("we're done now", arr)
+            print("We're done now, thanks for playin'")
             break
         else:
             unique, counts = np.unique(arr[aval], return_counts=True)
             # If 0's are more common than 1's
             if counts[0] > counts[1]:
-                print("0 are greater than 1s", counts)
                 # Slice out only columns that start with zero and replace array
                 arr = arr[:, arr[aval] == position[0]]
-                print(arr.shape)
                 # Keep only numbers with 1 in the first position
                 # Delete columns that start with one
             else:
                 # Otherwise keep 1s instead
-                print("Removing 0s", arr.shape)
                 arr = arr[:, arr[aval] == position[1]]
-                print(arr.shape)
     # Return final array
     return arr
 

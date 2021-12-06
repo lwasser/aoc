@@ -15,8 +15,8 @@ else:
     data_path = "data-day-4.txt"
     data_path_b = "data-day-4b.txt"
     reshape_val = 100
-path = os.path.join(os.getcwd(), "2021", data_path)
-pathb = os.path.join(os.getcwd(), "2021", data_path_b)
+path = os.path.join(os.getcwd(), "2021", "data", data_path)
+pathb = os.path.join(os.getcwd(), "2021", "data", data_path_b)
 
 # Read and cleanup
 with open(pathb) as f:

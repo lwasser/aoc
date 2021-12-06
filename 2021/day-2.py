@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 data_path = "data-day-2.txt"
-path = os.path.join(os.getcwd(), "2021", data_path)
+path = os.path.join(os.getcwd(), "2021", "data", data_path)
 df = pd.read_csv(path, delim_whitespace=True, names=["direction", "amount"])
 
 sumarised = df.groupby(["direction"]).sum().reset_index()
@@ -12,7 +12,7 @@ horizontal = sumarised.amount.iloc[1]
 
 total = depth * horizontal
 
-""" Challenge 2 
+""" Challenge 2
 
     down X increases your aim by X units.
     up X decreases your aim by X units.
@@ -35,7 +35,7 @@ for index, row in df.iterrows():
     # Forward - It increases your horizontal position by X units
     # increases your depth by your aim multiplied by X
     elif row.direction == "forward":
-        depth += (aim * row.amount)
+        depth += aim * row.amount
         horizontal += row.amount
 
 final = horizontal * depth
