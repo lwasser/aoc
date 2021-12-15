@@ -16,7 +16,7 @@ for line in all_data:
     )
 
 # ANSWER 539
-print("The number of 1,4,7,8 is:", len(unique_nums))
+print("The number of 1,4,7,8 is: ", len(unique_nums))
 
 """Part B"""
 
